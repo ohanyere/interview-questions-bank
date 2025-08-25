@@ -75,3 +75,20 @@ export const signIn = createAsyncThunk<{name: string, email: string},{email: str
     
   }
 })
+
+export const authSlice = createSlice({
+    name : "auth",
+    initialState,
+    reducers : {
+      reset : (state) => {
+        state.isSucess = false;
+        state.user = null
+        state.isError = false;
+      },
+     
+    },
+
+    
+})
+export const {sigOut, reset} = authSlice.actions
+export default authSlice.reducer
