@@ -86,7 +86,7 @@ export const authSlice = createSlice({
         state.isError = false;
       },
       sigOut : (state) => {
-        sigOut()
+        signOut()
         state.user = null
       }
     },
