@@ -61,3 +61,17 @@ export const signUpWithGoogle = createAsyncThunk("auth/siginwithGoogle", async(_
     
   }
 })
+
+export const signIn = createAsyncThunk<{name: string, email: string},{email: string, password: string}, {rejectValue : string} >("auth/signin", async(userData, thunkAPI) => {
+    
+  try {
+    const {email, password } = userData
+        return await loginUser(email, password)
+  } catch (error) {
+    if(error instanceof Error){
+      return thunkAPI.rejectWithValue(error.message)
+    }
+    return thunkAPI.rejectWithValue("failed to sign in ")
+    
+  }
+})
