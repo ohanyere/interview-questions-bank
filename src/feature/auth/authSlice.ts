@@ -90,7 +90,38 @@ export const authSlice = createSlice({
         state.user = null
       }
     },
-
+     extraReducers : (builder) => {
+        builder
+        .addCase(signUp.pending, (state) => {
+          state.isLoading = true;
+        })
+        .addCase(signUp.fulfilled, (state , action ) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.isSucess = true;
+        })
+        .addCase(signUp.rejected, (state, action ) => {
+            state.isError = true;
+            state.message = action.payload ?? "unknowned error occured";
+            state.isLoading = false;
+            state.isSucess= false;
+            state.user = null;
+        })
+         .addCase(signIn.pending, (state) => {
+          state.isLoading = true;
+        })
+        .addCase(signIn.fulfilled, (state, action ) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.isSucess = true;
+        })
+        .addCase(signIn.rejected, (state, action) => {
+            state.isError = true;
+            state.message = action.payload ?? "unknowned error occured";
+            state.isLoading = false;
+            state.isSucess = false;
+        })
+    }
     
 })
 export const {sigOut, reset} = authSlice.actions
