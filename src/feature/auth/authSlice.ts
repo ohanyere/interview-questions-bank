@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import { loginUser, registerUser , signOut} from "./authService";
-// import Oauth from "../../Components/Oauth";
+import Oauth from "../../Components/Oauth";
 
 type user = {
 name : string,
@@ -40,6 +40,24 @@ export const signUp = createAsyncThunk< {name: string, email: string}, useData,{
       return thunkAPI.rejectWithValue(error.message) 
     }
     return thunkAPI.rejectWithValue("failed to sign up") 
+    
+  }
+})
+
+export const signUpWithGoogle = createAsyncThunk("auth/siginwithGoogle", async(_,  thunkAPI)    => {
+    
+    
+  try {
+      
+        const fun =  await Oauth.signInWithGoogle()
+        
+        return fun
+         
+  } catch (error) {
+    if(error instanceof Error){
+      return thunkAPI.rejectWithValue(error.message) 
+    }
+     return thunkAPI.rejectWithValue("google signin failed ") 
     
   }
 })
